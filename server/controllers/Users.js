@@ -19,7 +19,7 @@ app.get('/:id', (req, res) => {
     }
 });
 
-// add a user
+// add user
 app.post('/', (req, res) => {
 
     const newUser = {
@@ -144,7 +144,7 @@ app.delete('/:id1/:id2', (req, res) => {
 });
 
 
-// delete a user
+// delete user
 app.delete('/:id', (req, res) => {
     const found = users.some(user => user.id === parseInt(req.params.id));
 

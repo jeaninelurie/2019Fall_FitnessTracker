@@ -20,7 +20,7 @@ app.get('/:id', (req, res) => {
     }
 });
 
-// add a exercise
+// add an exercise
 app.post('/', (req, res) => {
     const newExercise = {
         id: num,
@@ -39,7 +39,7 @@ app.post('/', (req, res) => {
     res.send(exercises[exercises.length-1]);
 });
 
-// edit exercise
+// edit an exercise
 app.put('/:id', (req, res) => {
     const found = exercises.some(exercise => exercise.id === parseInt(req.params.id));
 
@@ -61,7 +61,7 @@ app.put('/:id', (req, res) => {
 })
 
 
-// delete a exercise
+// delete an exercise
 app.delete('/:id', (req, res) => {
     const found = exercises.some(exercise => exercise.id === parseInt(req.params.id));
 
@@ -73,7 +73,7 @@ app.delete('/:id', (req, res) => {
     }
 });
 
-// add exercise to a user
+// add an exercise to a user
 app.put('/:idUser/:idExercise', (req, res) => {
     const found1 = users.some(user => user.id === parseInt(req.params.idUser));
     const found2 = exercises.some(exercise => exercise.id === parseInt(req.params.idExercise));
@@ -99,7 +99,7 @@ app.put('/:idUser/:idExercise', (req, res) => {
     }
 });
 
-// delete exercise
+// delete an exercise from a user
 app.delete('/:idUser/:idExercise', (req, res) => {
     const found1 = users.some(user => user.id === parseInt(req.params.idUser));
     const found2 = exercises.some(exercise => exercise.id === parseInt(req.params.idExercise));
