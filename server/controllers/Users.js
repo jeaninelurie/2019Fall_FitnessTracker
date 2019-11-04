@@ -10,10 +10,10 @@ app.get('/', (req, res) => res.send(users));
 
 // get a specific user
 app.get('/:id', (req, res) => {
-    const found = users.some(user => user.id === parseInt(req.params.id));
+    const found = users.find(user => user.id === parseInt(req.params.id));
 
     if(found) {
-        res.send(users.filter(user => user.id === parseInt(req.params.id)));
+        res.send(found);
     } else {
         res.status(400).json({msg: `No user with the id of ${req.params.id}`});
     }
@@ -43,112 +43,24 @@ app.post('/', (req, res) => {
 
 // edit user
 app.put('/:id', (req, res) => {
-    const found = users.some(user => user.id === parseInt(req.params.id));
+    const found = users.find(user => user.id === parseInt(req.params.id));
 
     if(found) {
         const updUser = req.query;
-        users.forEach(user => {
-            if(user.id === parseInt(req.params.id)) {
-                user.name = updUser.name ? updUser.name : user.name;
-
-                user.username = updUser.username ? updUser.username : user.username;
-
-                user.password = updUser.password ? updUser.password : user.password;
-
-            }
-        });
+        user.name = updUser.name ? updUser.name : user.name;
+        user.username = updUser.username ? updUser.username : user.username;
+        user.password = updUser.password ? updUser.password : user.password;
         res.send(users[req.params.id-1]);
     } else {
         res.status(400).json({msg: `No user with the id of ${req.params.id}`});
     }
 });
 
-// add friend
-app.put('/:id1/:id2', (req, res) => {
-    const found1 = users.some(user => user.id === parseInt(req.params.id1));
-    const found2 = users.some(user => user.id === parseInt(req.params.id2));
-    if(req.params.id1 === req.params.id2){
-        res.status(400).json({msg: 'Cannot add yourself as a friend'});
-    }
-
-    if(found1 && found2){
-        users.forEach(user => {
-            if(user.id === parseInt(req.params.id1)) {
-                user.friends.push(req.params.id2);
-            }
-        });
-        users.forEach(user => {
-            if(user.id === parseInt(req.params.id2)) {
-                user.friends.push(req.params.id1);
-            }
-        });
-        res.send(users);
-    }
-    else{
-        if(found1){
-            res.status(400).json({msg: `No user with the id of ${req.params.id2}`});
-        }
-        else if(found2){
-            res.status(400).json({msg: `No user with the id of ${req.params.id1}`});
-        }
-        else{
-            res.status(400).json({msg: `No user with the id of ${req.params.id1} or ${req.params.id2}`});
-        }
-        
-    }
-});
-
-// delete friend
-app.delete('/:id1/:id2', (req, res) => {
-    const found1 = users.some(user => user.id === parseInt(req.params.id1));
-    const found2 = users.some(user => user.id === parseInt(req.params.id2));
-    if(req.params.id1 === req.params.id2){
-        res.status(400).json({msg: 'Cannot add yourself as a friend'});
-    }
-
-    if(found1 && found2){
-        users.forEach(user => {
-            if(user.id === parseInt(req.params.id1)) {
-                var i = user.friends.indexOf(req.params.id2);
-                if( i => 0)
-                {
-                    user.friends.splice(i, 1);
-                }
-            }
-            
-        });
-        users.forEach(user => {
-            if(user.id === parseInt(req.params.id2)) {
-                var i = user.friends.indexOf(req.params.id1);
-                if( i => 0)
-                {
-                    user.friends.splice(i, 1);
-                }
-            }
-            
-        });
-        res.send(users);
-    }
-    else{
-        if(found1){
-            res.status(400).json({msg: `No user with the id of ${req.params.id2}`});
-        }
-        else if(found2){
-            res.status(400).json({msg: `No user with the id of ${req.params.id1}`});
-        }
-        else{
-            res.status(400).json({msg: `No user with the id of ${req.params.id1} or ${req.params.id2}`});
-        }
-        
-    }
-});
-
-
 // delete user
 app.delete('/:id', (req, res) => {
-    const found = users.some(user => user.id === parseInt(req.params.id));
+    const foundId = users.some(user => user.id === parseInt(req.params.id));
 
-    if(found) {
+    if(foundId) {
         res.send( {msg: 'User deleted', users:
         users.filter(user => user.id !== parseInt(req.params.id))});
     } else {
