@@ -1,7 +1,7 @@
 <template>
   <div>
      <h1 class="is-size-1">
-         Name
+         {{users[currentUser].name}}
     </h1>
 
     <div class="columns">
@@ -10,8 +10,11 @@
                 <p class="panel-heading">
                     Friends
                 </p>
-                <li >
-                
+                <li v-for="(f, i) in users[currentUser].friends" :key="i">
+                    <span>
+                        <i class="fas fa-user-friends"></i>
+                    </span>
+                    {{f}}
                 </li>
             </ul>
         </div>
@@ -20,11 +23,25 @@
                 <p class="panel-heading">
                     Exercises
                 </p>
-                <li >
-                
+                <li v-for="(e, i) in users[currentUser].exercises" :key="i">
+                    <span>
+                        <i class ="fas fa-dumbbell" aria-hidden="true"></i>
+                    </span>
+                    {{e}}
                 </li>
             </ul>
         </div>
     </div>
   </div>
 </template>
+
+<script>
+import {Data_Client} from "../models/Data";
+
+export default {
+    data: () => ({
+        users: Data_Client.users,
+        currentUser: 0
+    })
+}
+</script>
