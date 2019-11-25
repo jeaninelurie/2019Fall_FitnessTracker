@@ -54,12 +54,16 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
+          <router-link  to="/signup" exact-active-class="active" >
           <a class="button is-primary">
             <strong>Sign up</strong>
           </a>
+          </router-link>
+          <router-link to="/login" exact-active-class="active" >
           <a class="button is-light">
             Log in
           </a>
+          </router-link>
         </div>
       </div>
     </div>
