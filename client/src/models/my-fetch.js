@@ -1,4 +1,4 @@
-const api_root = "http://localhost:5000/game/";
+const api_root = "http://localhost:5000/users/";
 
 export async function api(url, data){
     let  response;

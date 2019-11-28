@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import { User } from "../models/my-fetch";
+
 import Home from '../views/Home.vue';
 import Profile from '../views/Profile.vue';
 import Login from '../views/Login.vue';

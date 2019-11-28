@@ -1,6 +1,19 @@
-export default [
-    { name: "User1", friends:["User2", "User4"], exercises: ["Mile Run", "Ab Workouts", "Planks"] },
-    { name: "User2", friends:["User1"], exercises: [] },
-    { name: "User3", friends:[], exercises: ["Yoga Routine", "Bench Press", "Arm Workouts"] },
-    { name: "User4", friends:["User1"], exercises: ["Ab Workouts", "Long Distance Run"] },
-]
+import { api, User } from "./my-fetch";
+import $router from "../router/index";
+
+export const User_Server = {
+    async signup(name, username){
+        const { user_id } = await api('signupUser', { name, username });
+        User.User_Id = user_id;
+        $router.push( { name: 'profile' } );
+    },
+    async login(username){
+        const { user_id } = await api('loginUser', {username});
+        User.User_Id = user_id;
+        console.log(User.User_Id);
+        $router.push( { name: 'profile' } );
+    },
+    Get_Users(){
+        return api('');
+    }
+}

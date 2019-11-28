@@ -36,12 +36,15 @@
 </template>
 
 <script>
-import {Data_Client} from "../models/Data";
+import { User_Server } from "../models/Users";
+import { User } from '../models/my-fetch';
 
 export default {
     data: () => ({
-        users: Data_Client.users,
-        currentUser: 0
-    })
+        users: []
+    }),
+    async created(){
+        setInterval( async ()=> this.users = await User_Server.Get_Users(), 2000)
+    }
 }
 </script>
