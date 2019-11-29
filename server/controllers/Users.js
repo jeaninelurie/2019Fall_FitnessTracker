@@ -6,7 +6,7 @@ const app = express.Router();
 
 // get all users
 app.get('/', (req, res) => {
-    res.send({...Users.Get_Users(), me: Users.registeredUsers[req.user_id]});
+    res.send({...Users.Get_Users()});
 });
 
 // get a specific user

@@ -2,8 +2,8 @@ const { CustomError } = require('../models/CustomError');
 
 module.exports.Users = {
     registeredUsers: [
-        {name: "Jeanine", username: "username1", exerciseList: [], friends: []},
-        {name: "user2", username: "username2", exerciseList: [], friends: []}
+        {name: "Jeanine", username: "username1", exerciseList: ["exercise1"], friends: [1]},
+        {name: "user2", username: "username2", exerciseList: ["exercise2"], friends: [0]}
     ],
     signup(name, username){
         if(name == '' || username == ''){
@@ -25,6 +25,8 @@ module.exports.Users = {
         }
     },
     Get_Users(){
-        return this.registeredUsers;
+        return { 
+            Users: this.registeredUsers
+        };
     }
 }
