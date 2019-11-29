@@ -31,6 +31,9 @@
                 </div>
               </div>
               <p class="help is-danger">{{error}} </p>
+              <p>Don't have an account? 
+                <router-link to="/signup"> Sign up here </router-link>
+              </p>
           </div>
         </div>
       </ul>

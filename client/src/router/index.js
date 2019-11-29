@@ -19,6 +19,13 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: Profile,
+    beforeEnter: (to, from, next) => {
+      if(User.User_Id == null){
+        next( { name: "login" } )
+      } else{
+        next();
+      }
+    }
   },
   { path: '/login', name: 'login', component: Login},
   { path: '/signup', name: 'signup', component: Signup},
