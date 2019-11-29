@@ -13,11 +13,13 @@
                 <p class="panel-heading">
                     Friends
                 </p>
-                <li v-for="(f, i) in users.Users[me].friends" :key="i">
+                <li v-for="(f, i) in users.Users[me].friends" :key="i" class="panel-block is-active">
                     <span>
                         <i class="fas fa-user-friends"></i>
                     </span>
+                    <p style="padding-left: 10px;">
                     {{users.Users[f].username}}
+                    </p>
                 </li>
             </ul>
         </div>
@@ -26,11 +28,13 @@
                 <p class="panel-heading">
                     Exercises
                 </p>
-                <li v-for="(e, i) in users.Users[me].exerciseList" :key="i">
+                <li v-for="(e, i) in users.Users[me].exerciseList" :key="i" class="panel-block is-active">
                     <span>
                         <i class ="fas fa-dumbbell" aria-hidden="true"></i>
                     </span>
+                    <p style="padding-left: 10px;">
                     {{e}}
+                    </p>
                 </li>
             </ul>
         </div>
