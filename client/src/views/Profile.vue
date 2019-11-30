@@ -8,7 +8,7 @@
     </h4>
 
     <div class="columns">
-        <div class="column is-one-quarter">
+        <div class="column is-two-fifths">
            <ul class="panel">
                 <p class="panel-heading">
                     Friends
@@ -17,9 +17,20 @@
                     <span>
                         <i class="fas fa-user-friends"></i>
                     </span>
-                    <p style="padding-left: 10px;">
-                    {{users.Users[f].username}}
-                    </p>
+                    <div class="column">
+                        <div class="is-pulled-left">
+                            <p style="padding-left: 10px;">
+                                {{users.Users[f].username}}
+                            </p>
+                        </div>
+                        <div class="is-pulled-right">
+                            <button class="button is-primary is-pulled-right" @click="deleteFriend(i)">
+                                <p style="padding-left: 1px;">
+                                    Delete
+                                </p>
+                            </button>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -32,9 +43,21 @@
                     <span>
                         <i class ="fas fa-dumbbell" aria-hidden="true"></i>
                     </span>
-                    <p style="padding-left: 10px;">
-                    {{e}}
-                    </p>
+                    <div class="column">
+                        <div class="is-pulled-left">
+                            <p style="padding-left: 10px;">
+                                {{exercises.Exercises[e].title}}
+                            </p>
+                        </div>
+                        <div class="is-pulled-right">
+                            <button class="button is-primary is-pulled-right" @click="deleteExercise(e)">
+                                <p style="padding-left: 1px;">
+                                    Delete
+                                </p>
+                            </button>
+                        </div>
+                    </div>
+                    
                 </li>
             </ul>
         </div>
@@ -43,17 +66,28 @@
 </template>
 
 <script>
+import { Exercise_Server } from "../models/Exercises";
 import { User_Server } from "../models/Users";
 import { User } from '../models/my-fetch';
 
 export default {
     data: () => ({
+        exercises: {},
         users: {},
         me: 0
     }),
     async created(){
-        setInterval( async ()=>  this.users = await User_Server.Get_Users(), 2000)
+        setInterval( async ()=>  this.exercises = await Exercise_Server.Get_Exercises(), 2000);
+        setInterval( async ()=>  this.users = await User_Server.Get_Users(), 2000);
         this.me = User.User_Id;
+    },
+    methods: {
+        deleteFriend(i){
+            User_Server.Delete_Friend(User.User_Id, i);
+        },
+        deleteExercise(e){
+            User_Server.Delete_Exercise(User.User_Id, e)
+        }
     }
 }
 </script>

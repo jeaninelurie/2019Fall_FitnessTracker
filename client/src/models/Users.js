@@ -1,4 +1,6 @@
 import { api, User } from "./my-fetch";
+import { apifriends } from "./my-fetch-friends";
+import { apiuserexercises } from "./my-fetch-userexercises";
 import $router from "../router/index";
 
 export const User_Server = {
@@ -15,5 +17,18 @@ export const User_Server = {
     },
     Get_Users(){
         return api('');
+    },
+    Add_Friend(user1, user2){
+        return apifriends('add', {user1, user2});
+    },
+    Delete_Friend(user1, user2){
+        return apifriends('delete', {user1, user2});
+    },
+    Add_Exercise(user, exercise){
+        return apiuserexercises('add', {user, exercise});
+    },
+    Delete_Exercise(user, exercise){
+        return apiuserexercises('delete', {user, exercise});
     }
+
 }

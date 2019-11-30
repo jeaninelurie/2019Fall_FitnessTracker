@@ -23,7 +23,7 @@
           </p>
         </div>
         <div class="is-pulled-right">
-          <button class="button is-primary is-pulled-right">
+          <button class="button is-primary is-pulled-right" @click.prevent="addExercise(e)">
             <span class="icon is-small">
               <i class="fas fa-plus"></i>
             </span>
@@ -50,7 +50,7 @@
                 </p>
               </div>
               <div class="is-pulled-right">
-                <button class="button is-primary is-pulled-right">
+                <button class="button is-primary is-pulled-right" @click="addFriend(i)">
                   <span class="icon is-small">
                     <i class="fas fa-plus"></i>
                   </span>
@@ -70,6 +70,8 @@
 <script>
 import { Exercise_Server } from "../models/Exercises";
 import { User_Server } from "../models/Users";
+import { User } from '../models/my-fetch';
+import $router from "../router/index";
 
 export default {
   data: () => ({
@@ -78,8 +80,8 @@ export default {
     users: {}
   }),
   async created(){
-        setInterval( async ()=>  this.users = await User_Server.Get_Users(), 2000)
-        setInterval( async ()=>  this.exercises = await Exercise_Server.Get_Exercises(), 2000)
+        setInterval( async ()=>  this.users = await User_Server.Get_Users(), 2000);
+        setInterval( async ()=>  this.exercises = await Exercise_Server.Get_Exercises(), 2000);
   },
   computed: {
     filteredExercises: function() {
@@ -92,6 +94,24 @@ export default {
         return vm.exercises.Exercises.filter(function(exercise) {
           return exercise.type === type;
         });
+      }
+    }
+  },
+  methods: {
+    addExercise(e){
+      if(User.User_Id == null){
+        $router.push( { name: 'profile' } );
+      }
+      else{
+        User_Server.Add_Exercise(User.User_Id, this.exercises.Exercises.findIndex(x => x.title == e.title));
+      }
+    },
+    addFriend(i){
+      if(User.User_Id == null){
+        $router.push( { name: 'profile' } );
+      }
+      else{
+        User_Server.Add_Friend(User.User_Id, i);
       }
     }
   }

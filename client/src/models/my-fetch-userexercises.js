@@ -1,6 +1,6 @@
-const api_root = "http://localhost:5000/exercises/";
+const api_root = "http://localhost:5000/userexercises/";
 
-export async function api(url, data){
+export async function apiuserexercises(url, data){
     let  response;
 
     if(data){
