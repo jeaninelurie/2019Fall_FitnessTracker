@@ -50,11 +50,16 @@
                             </p>
                         </div>
                         <div class="is-pulled-right">
-                            <button class="button is-primary is-pulled-right" @click="deleteExercise(e)">
+                            <div class="buttons">
+                            <button class="button is-primary" @click="getExercise(exercises.Exercises[e].title)">
+                                View
+                            </button>
+                            <button class="button is-primary" @click="deleteExercise(i)">
                                 <p style="padding-left: 1px;">
                                     Delete
                                 </p>
                             </button>
+                            </div>
                         </div>
                     </div>
                     
@@ -77,7 +82,7 @@ export default {
         me: 0
     }),
     async created(){
-        setInterval( async ()=>  this.exercises = await Exercise_Server.Get_Exercises(), 2000);
+        this.exercises = await Exercise_Server.Get_Exercises();
         setInterval( async ()=>  this.users = await User_Server.Get_Users(), 2000);
         this.me = User.User_Id;
     },
@@ -86,7 +91,10 @@ export default {
             User_Server.Delete_Friend(User.User_Id, i);
         },
         deleteExercise(e){
-            User_Server.Delete_Exercise(User.User_Id, e)
+            User_Server.Delete_Exercise(User.User_Id, e);
+        },
+        getExercise(title){
+            Exercise_Server.Get_One_Exercise(title);
         }
     }
 }

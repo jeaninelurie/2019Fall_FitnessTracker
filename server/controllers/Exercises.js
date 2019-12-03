@@ -11,13 +11,9 @@ app.get('/', (req, res) => {
 
 // get a specific exercise
 app.get('/:title', (req, res) => {
-    const found = exercises.find(exercise => exercise.title === parseInt(req.params.title));
-
-    if(found) {
-        res.send(found);
-    } else {
-        res.status(400).json({msg: `No exercise with the title of ${req.params.title}`});
-    }
+   e = Exercises.Get_One_Exercise(req.params.title);
+   console.log(e);
+   res.send({success: true, e});
 });
 
 // add an exercise

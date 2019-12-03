@@ -54,6 +54,9 @@ module.exports.Users = {
         this.registeredUsers[user].exerciseList.push(exercise);
     },
     Delete_Exercise(user, exercise){
+        console.log(this.registeredUsers[user].exerciseList);
+        console.log(exercise);
         this.registeredUsers[user].exerciseList.splice(exercise, 1);
+        console.log(this.registeredUsers[user].exerciseList);
     }
 }
