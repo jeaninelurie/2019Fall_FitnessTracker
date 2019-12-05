@@ -72,6 +72,7 @@ import { Exercise_Server } from "../models/Exercises";
 import { User_Server } from "../models/Users";
 import { User } from '../models/my-fetch';
 import $router from "../router/index";
+import toastr from "vanillatoasts/vanillatoasts";
 
 export default {
   data: () => ({
@@ -103,7 +104,7 @@ export default {
         $router.push( { name: 'profile' } );
       }
       else{
-        User_Server.Add_Exercise(User.User_Id, this.exercises.Exercises.findIndex(x => x.title == e.title));
+        User_Server.Add_Exercise(User.User_Id, this.exercises.Exercises.findIndex(x => x.title == e.title)).catch(err=> toastr.create({ text: err.message, type: 'error', }));
       }
     },
     addFriend(i){
@@ -111,7 +112,7 @@ export default {
         $router.push( { name: 'profile' } );
       }
       else{
-        User_Server.Add_Friend(User.User_Id, i);
+        User_Server.Add_Friend(User.User_Id, i).catch(err=> toastr.create({ text: err.message, type: 'error', }));
       }
     }
   }
@@ -119,10 +120,13 @@ export default {
 </script>
 
 <style>
-.filter {
+  .filter {
     text-align: center
   }
-.end {
-  justify-content: flex-end !important;
-}
+  .end {
+    justify-content: flex-end !important;
+  }
+  #vanillatoasts-container{
+    z-index: 100;
+  }
 </style>
