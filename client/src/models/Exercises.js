@@ -10,5 +10,11 @@ export const Exercise_Server = {
         const { e } = await api(title);    
         Exercise.Exercise = e;
         $router.push( { name: 'exercise' } );
+    },
+    async Get_Filtered_Exercises(filter){
+        const { fe } = await api('filterExercises/' + filter);
+        console.log(fe);
+        return fe;
+        
     }
 }

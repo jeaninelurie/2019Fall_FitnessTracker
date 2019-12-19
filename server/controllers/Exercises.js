@@ -9,12 +9,19 @@ app.get('/', (req, res) => {
     res.send({...Exercises.Get_Excercises()});
 });
 
+app.get('/filterExercises/:filter', (req, res) => {
+    fe = Exercises.Get_Filtered_Exercises(req.params.filter);
+    res.send({success: true, fe});
+});
+
 // get a specific exercise
 app.get('/:title', (req, res) => {
    e = Exercises.Get_One_Exercise(req.params.title);
    console.log(e);
    res.send({success: true, e});
 });
+
+
 
 // add an exercise
 app.post('/', (req, res) => {

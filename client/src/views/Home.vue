@@ -6,6 +6,9 @@
     <li><p class="panel-heading">
       Available Exercises
     </p></li>
+    <li><div class="search">
+      <v-select label:="title" :options="srchexercises" @search="srchChanged"></v-select>
+    </div></li>
     <li class="filter">
       <label> <input type="radio" v-model="selectedType" value="All"> All </label>
       <label> <input type="radio" v-model="selectedType" value="Cardio"> Cardio </label>
@@ -78,7 +81,8 @@ export default {
   data: () => ({
     exercises: {},
     selectedType: "All",
-    users: {}
+    users: {},
+    srchexercises: []
   }),
   async created(){
         setInterval( async ()=>  this.users = await User_Server.Get_Users(), 2000);
@@ -114,6 +118,10 @@ export default {
       else{
         User_Server.Add_Friend(User.User_Id, i).catch(err=> toastr.create({ text: err.message, type: 'error', }));
       }
+    },
+    async srchChanged(search){
+      const { fe } = await Exercise_Server.Get_Filtered_Exercises(search);
+      console.log("list: " + fe);
     }
   }
 };
@@ -122,6 +130,11 @@ export default {
 <style>
   .filter {
     text-align: center
+  }
+  .search {
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   .end {
     justify-content: flex-end !important;

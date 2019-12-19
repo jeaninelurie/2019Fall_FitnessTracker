@@ -23,5 +23,12 @@ module.exports.Exercises = {
             return e;
         }
         throw new CustomError(404, "Exercise not found.");
+    },
+    Get_Filtered_Exercises(filter){
+        return {
+            Exercises: this.availableExcercises.filter(function (e) {
+                        return e.title.toLowerCase().indexOf(filter) >= 0;
+                        })
+        };
     }
 };
